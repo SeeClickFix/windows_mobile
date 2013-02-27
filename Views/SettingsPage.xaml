@@ -1,0 +1,53 @@
+﻿<phone:PhoneApplicationPage x:Class="SeeClickFix.WP8.Views.SettingsPage"
+                            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                            xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+                            xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+                            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                            xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+                            FontFamily="{StaticResource PhoneFontFamilyNormal}"
+                            FontSize="{StaticResource PhoneFontSizeNormal}"
+                            Foreground="{StaticResource PhoneForegroundBrush}"
+                            SupportedOrientations="Portrait"
+                            Orientation="Portrait"
+                            mc:Ignorable="d"
+                            shell:SystemTray.IsVisible="True"
+                            DataContext="{Binding Settings, Source={StaticResource Locator}}">
+
+    <Grid x:Name="LayoutRoot"
+          Background="{StaticResource PageBackgroundBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!--TitlePanel contains the name of the application and page title-->
+        <StackPanel Grid.Row="0"
+                    Margin="24,17,0,28">
+            <ContentControl ContentTemplate="{StaticResource LogoTitleTemplate}"
+                            HorizontalAlignment="Left"
+                            Margin="0,0,0,0" />
+            <TextBlock Text="settings"
+                       Margin="0,0,0,0"
+                       Style="{StaticResource PhoneTextTitle1Style}" />
+        </StackPanel>
+
+        <!--ContentPanel - place additional content here-->
+        <StackPanel x:Name="ContentPanel"
+                    Grid.Row="1"
+                    Margin="12,0,12,0">
+            <StackPanel>
+                <toolkit:ToggleSwitch Header="Location Service"
+                                      IsChecked="{Binding UseLocationServices, Mode=TwoWay}"/>
+                <TextBlock Margin="12,0,0,0"
+                           Text="Allow the application to find your current location and use it when reporting an issue or searching for nearby issues."
+                           TextWrapping="Wrap" />
+                <TextBlock Margin="12,12,0,0"
+                           Text="To turn off location for all applications on your phone, go to the Settings application of your Windows Phone."
+                           TextWrapping="Wrap" />
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+
+</phone:PhoneApplicationPage>

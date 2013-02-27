@@ -1,0 +1,65 @@
+﻿<phone:PhoneApplicationPage x:Class="SeeClickFix.WP8.Views.VoteIssuePage"
+                            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                            xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+                            xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+                            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                            xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+                            xmlns:appBarUtils="clr-namespace:AppBarUtils;assembly=AppBarUtils"
+                            xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WP8"
+                            xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+                            xmlns:controls="clr-namespace:SeeClickFix.WP8.Controls"
+                            mc:Ignorable="d"
+                            FontFamily="{StaticResource PhoneFontFamilyNormal}"
+                            FontSize="{StaticResource PhoneFontSizeNormal}"
+                            Foreground="{StaticResource PhoneForegroundBrush}"
+                            SupportedOrientations="Portrait"
+                            Orientation="Portrait"
+                            shell:SystemTray.IsVisible="True"
+                            DataContext="{Binding VoteIssue, Source={StaticResource Locator}}">
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar IsVisible="True"
+                              IsMenuEnabled="True">
+            <shell:ApplicationBarIconButton  IconUri="/Assets/AppBar/message.send.png"
+                                             Text="send vote" />
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>
+    <i:Interaction.Behaviors>
+        <appBarUtils:AppBarItemCommand  Id="send vote"
+                                        Command="{Binding SendVoteCommand}" />
+
+    </i:Interaction.Behaviors>
+    <!--LayoutRoot is the root grid where all page content is placed-->
+    <Grid Background="{StaticResource PageBackgroundBrush}">
+        <!--Pivot Control-->
+        <phone:Pivot Title="{Binding Issue.Summary}"
+                     TitleTemplate="{StaticResource UppercaseTextBlockTemplate}">
+            <!--Pivot item one-->
+            <phone:PivotItem Header="vote">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <ProgressBar IsIndeterminate="{Binding IsBusy}"
+                                 Visibility="{Binding IsBusy, Converter={StaticResource ObjectToVisibilityConverter}}" />
+                    <StackPanel Grid.Row="1">
+                        <controls:UserLoginControl />
+                        <controls:WatermarkTextBox Text="{Binding Email, Mode=TwoWay}"
+                                                   Margin="0,12,0,0"
+                                                   WatermarkText="Your Email *"
+                                                   InputScope="EmailNameOrAddress"
+                                                   TextChanged="TxtBox_TextChanged" />
+
+                        <!--<TextBlock Text="Your vote will increase the chance of a fix by 5% and the chance of letting your neighbor know that you have their back by 100%."
+                                   TextWrapping="Wrap"
+                                   Foreground="Black"
+                                   Margin="12,12,0,0"/>-->
+                    </StackPanel>
+                </Grid>
+            </phone:PivotItem>
+        </phone:Pivot>
+    </Grid>
+
+</phone:PhoneApplicationPage>

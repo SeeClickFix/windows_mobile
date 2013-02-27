@@ -1,0 +1,77 @@
+﻿<phone:PhoneApplicationPage x:Class="SeeClickFix.WP8.Views.AboutPage"
+                            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                            xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+                            xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+                            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                            FontFamily="{StaticResource PhoneFontFamilyNormal}"
+                            FontSize="{StaticResource PhoneFontSizeNormal}"
+                            Foreground="{StaticResource PhoneForegroundBrush}"
+                            SupportedOrientations="Portrait"
+                            Orientation="Portrait"
+                            mc:Ignorable="d"
+                            shell:SystemTray.IsVisible="True">
+
+    <!--LayoutRoot is the root grid where all page content is placed-->
+    <Grid x:Name="LayoutRoot"
+          Background="{StaticResource PageBackgroundBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!--TitlePanel contains the name of the application and page title-->
+        <StackPanel Grid.Row="0"
+                    Margin="24,17,0,28">
+            <ContentControl ContentTemplate="{StaticResource LogoTitleTemplate}"
+                            HorizontalAlignment="Left"
+                            Margin="0,0,0,0" />
+            <TextBlock Text="about"
+                       Margin="0,0,0,0"
+                       Style="{StaticResource PhoneTextTitle1Style}" />
+        </StackPanel>
+
+        <!--ContentPanel - place additional content here-->
+        <StackPanel x:Name="ContentPanel"
+                    Grid.Row="1"
+                    Margin="12,0,12,0">
+            <StackPanel>
+                <TextBlock Margin="12,0,0,0"
+                           Text="SeeClickFix for Windows Phone" />
+                <TextBlock x:Name="TxtVersion"
+                           Margin="12,0,0,0" />
+                <TextBlock Text="SeeClicFix, Inc"
+                           Margin="12,0,0,0" />
+
+                <HyperlinkButton Content="give us a review"
+                                 Click="HyperlinkButton_Click_1"
+                                 HorizontalAlignment="Left" 
+                                 Margin="0,12,0,0"/>
+
+                <TextBlock Text="You can reach us on Twitter @SeeClickFix or by sending an email to:"
+                           Margin="12,24,0,0"
+                           TextWrapping="Wrap" />
+                <HyperlinkButton Content="contact@seeclickfix.com"
+                                 HorizontalAlignment="Left"
+                                 Click="BtnComposeEmail_Click_1" />
+
+                <TextBlock Text="Visit us online at:"
+                           Margin="12,24,0,0"
+                           TextWrapping="Wrap" />
+
+                <HyperlinkButton HorizontalAlignment="Left"
+                                 Margin="0,0,0,0"
+                                 Content="http://www.seeclickfix.com"
+                                 Click="BtnViewWebsite_Click_1" />
+
+                <HyperlinkButton Content="View Terms of Use &amp; Privacy Policy"
+                                 HorizontalAlignment="Left"
+                                 Margin="0,24,0,0"
+                                 x:Name="BtnViewTerms"
+                                 Click="BtnViewTerms_Click_1" />
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+
+</phone:PhoneApplicationPage>

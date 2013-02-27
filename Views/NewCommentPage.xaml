@@ -1,0 +1,105 @@
+﻿<phone:PhoneApplicationPage x:Class="SeeClickFix.WP8.Views.NewCommentPage"
+                            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                            xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+                            xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+                            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                            xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+                            xmlns:appBarUtils="clr-namespace:AppBarUtils;assembly=AppBarUtils"
+                            xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WP8"
+                            xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+                            mc:Ignorable="d"
+                            FontFamily="{StaticResource PhoneFontFamilyNormal}"
+                            FontSize="{StaticResource PhoneFontSizeNormal}"
+                            Foreground="{StaticResource PhoneForegroundBrush}"
+                            SupportedOrientations="Portrait"
+                            Orientation="Portrait"
+                            shell:SystemTray.IsVisible="True"
+                            xmlns:controls="clr-namespace:SeeClickFix.WP8.Controls"
+                            DataContext="{Binding NewComment, Source={StaticResource Locator}}">
+
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar IsVisible="True"
+                              IsMenuEnabled="True">
+            <shell:ApplicationBarIconButton  IconUri="/Assets/AppBar/message.send.png"
+                                             Text="send" />
+            <shell:ApplicationBarIconButton  IconUri="/Assets/AppBar/paperclip.png"
+                                             Text="attach" />
+            <shell:ApplicationBarIconButton  IconUri="/Assets/AppBar/microphone.png"
+                                             Text="speak" />
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>
+    <i:Interaction.Behaviors>
+        <appBarUtils:AppBarItemCommand  Id="send"
+                                        Command="{Binding SendCommentCommand}" />
+        <appBarUtils:AppBarItemCommand  Id="attach"
+                                        Command="{Binding AttachCommentCommand}" />
+        <appBarUtils:AppBarItemCommand  Id="speak"
+                                        Command="{Binding SpeakCommentCommand}" />
+    </i:Interaction.Behaviors>
+    <!--LayoutRoot is the root grid where all page content is placed-->
+    <Grid x:Name="LayoutRoot"
+          Background="{StaticResource PageBackgroundBrush}">
+        <!--Pivot Control-->
+        <phone:Pivot Title="{Binding Issue.Summary}"
+                     TitleTemplate="{StaticResource UppercaseTextBlockTemplate}">
+            <!--Pivot item one-->
+            <phone:PivotItem Header="{Binding CommentType, Converter={StaticResource NewCommentTitleConverter}}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <ProgressBar IsIndeterminate="{Binding IsBusy}"
+                                 Visibility="{Binding IsBusy, Converter={StaticResource ObjectToVisibilityConverter}}" />
+                    <StackPanel Grid.Row="1">
+                        <controls:UserLoginControl />
+                        <controls:WatermarkTextBox Text="{Binding CommentName, Mode=TwoWay}"
+                                                   TextChanged="TxtBox_TextChanged"
+                                                   WatermarkText="Your Name"
+                                                   InputScope="PersonalFullName"
+                                                   Margin="0,12,0,0"
+                                                   Visibility="{Binding UserProfileService.IsLogged, Converter={StaticResource ObjectToVisibilityConverter}, ConverterParameter='inverse'}"/>
+                        <controls:WatermarkTextBox Text="{Binding CommentEmail, Mode=TwoWay}"
+                                                   WatermarkText="Your Email *"
+                                                   InputScope="EmailNameOrAddress"
+                                                   TextChanged="TxtBox_TextChanged"
+                                                   Visibility="{Binding UserProfileService.IsLogged, Converter={StaticResource ObjectToVisibilityConverter}, ConverterParameter='inverse'}" />
+                        <!--<toolkit:ListPicker ItemsSource="{Binding IssueStatusOptions}"
+                                            SelectedItem="{Binding IssueStatus, Mode=TwoWay}"
+                                            Header="Issue Status"/>-->
+                        <controls:WatermarkTextBox Text="{Binding CommentText, Mode=TwoWay}"
+                                                   InputScope="Chat"
+                                                   WatermarkText="Your Comment *"
+                                                   TextChanged="TxtBox_TextChanged"
+                                                   AcceptsReturn="True"
+                                                   Height="240" />
+                        <controls:WatermarkTextBox Text="{Binding YoutubeVideoUrl, Mode=TwoWay}"
+                                                   WatermarkText="A Youtube video (http://youtube.com/..)"
+                                                   TextChanged="TxtBox_TextChanged"
+                                                   InputScope="Url" />
+                        <Border BorderBrush="LightGray"
+                                BorderThickness="1"
+                                Visibility="{Binding Photo, Converter={StaticResource ObjectToVisibilityConverter}}"
+                                HorizontalAlignment="Left"
+                                Height="96"
+                                Width="96"
+                                Background="Black"
+                                Margin="12,12,0,12">
+                            <Image Source="{Binding Photo, Converter={StaticResource BitmapImageConverter}}">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Tap">
+                                        <cmd:EventToCommand Command="{Binding ViewImageCommand}"
+                                                            CommandParameter="{Binding Photo}" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Image>
+                        </Border>
+                    </StackPanel>
+                </Grid>
+            </phone:PivotItem>
+        </phone:Pivot>
+    </Grid>
+
+</phone:PhoneApplicationPage>

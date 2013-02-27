@@ -1,0 +1,156 @@
+﻿<UserControl x:Class="SeeClickFix.WP8.Views.IssueListView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+             xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WP8"
+             xmlns:behaviors="clr-namespace:SeeClickFix.WP8.Behaviors"
+             xmlns:multibinding="clr-namespace:SLMultiBinding"
+             mc:Ignorable="d"
+             FontFamily="{StaticResource PhoneFontFamilyNormal}"
+             FontSize="{StaticResource PhoneFontSizeNormal}"
+             Foreground="{StaticResource PhoneForegroundBrush}"
+             d:DesignHeight="480"
+             d:DesignWidth="480">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <ProgressBar IsIndeterminate="{Binding IssueList.IsBusy}"
+                     Visibility="{Binding IssueList.IsBusy, Converter={StaticResource ObjectToVisibilityConverter}}" />
+        <Grid Grid.Row="1">
+            <Grid>
+                <ScrollViewer Visibility="{Binding IssueList.Issues.Count, Converter={StaticResource ObjectToVisibilityConverter}}">
+                    <i:Interaction.Behaviors>
+                        <behaviors:LoadMoreBehavior LoadMoreDataCommand="{Binding IssueList.LoadMoreIssuesCommand}" />
+                    </i:Interaction.Behaviors>
+                    <ScrollViewer.Content>
+                        <ItemsControl x:Name="ItemsControl"
+                                      ItemsSource="{Binding IssueList.Issues}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid Margin="0,0,0,24"
+                                          Background="Transparent"
+                                          toolkit:TiltEffect.IsTiltEnabled="True">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="Tap">
+                                                <cmd:EventToCommand Command="{Binding DataContext.IssueList.ShowIssueDetailsCommand, ElementName=ItemsControl}"
+                                                                    CommandParameter="{Binding}" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Text="{Binding Summary}"
+                                                   Style="{StaticResource PhoneTextTitle3Style}"
+                                                   FontWeight="Black"
+                                                   Margin="0,0,0,0"
+                                                   TextWrapping="Wrap"
+                                                   TextTrimming="WordEllipsis" />
+                                        <Grid Grid.Row="2">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="12" />
+                                                <ColumnDefinition />
+                                            </Grid.ColumnDefinitions>
+
+                                            <StackPanel>
+                                                <Border BorderThickness="2"
+                                                        HorizontalAlignment="Left"
+                                                        BorderBrush="{Binding Status, Converter={StaticResource IssueStatusBrushConverter}}"
+                                                        Background="{Binding Status, Converter={StaticResource IssueStatusBrushConverter}}"
+                                                        Height="72"
+                                                        Width="72"
+                                                        VerticalAlignment="Top">
+                                                    <Image Source="{Binding Converter={StaticResource IssueImageConverter}, ConverterParameter='no-image'}" />
+                                                </Border>
+                                                <Border Background="{Binding Status, Converter={StaticResource IssueStatusBrushConverter}}"
+                                                        Margin="0,1,0,0">
+                                                    <StackPanel Orientation="Horizontal"
+                                                                HorizontalAlignment="Center">
+                                                        <Image Source="/Assets/AppBar/thumb.up.png"
+                                                               Height="38"
+                                                               Margin="-8,0,0,0"
+                                                               VerticalAlignment="Center" />
+                                                        <TextBlock Text="{Binding Rating}"
+                                                                   Margin="-3,0,0,0"
+                                                                   Foreground="White"
+                                                                   FontSize="{StaticResource PhoneFontSizeMedium}"
+                                                                   VerticalAlignment="Center" />
+                                                    </StackPanel>
+                                                </Border>
+                                            </StackPanel>
+
+                                            <StackPanel Grid.Column="2">
+                                                <TextBlock Text="{Binding Address}"
+                                                           TextWrapping="Wrap" />
+                                                <TextBlock Text="{Binding CreatedAt, Converter={StaticResource DateTimeConverter}}" />
+                                                <!--<TextBlock Text="{Binding Rating, Converter={StaticResource VotedTextConverter}}" />-->
+                                                <TextBlock Text="{Binding Status, StringFormat='status {0}'}" />
+                                                <!--<TextBlock Text="{Binding Description}"
+                                                           Grid.Row="1"
+                                                           Foreground="LightGray"
+                                                           TextWrapping="Wrap"
+                                                           TextTrimming="WordEllipsis"
+                                                           Height="30"/>-->
+                                            </StackPanel>
+                                        </Grid>
+                                    </Grid>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer.Content>
+                </ScrollViewer>
+
+                <RichTextBox Visibility="{Binding IssueList.HasLocationServicesError, Converter={StaticResource ObjectToVisibilityConverter}}"
+                             VerticalAlignment="Top"
+                             Margin="-12,0,0,0"
+                             FontFamily="{StaticResource PhoneFontFamilySemiLight}"
+                             FontSize="{StaticResource PhoneFontSizeMedium}">
+                    <Paragraph>We couldn't find your location.
+                        <LineBreak />
+                        Make sure you have location services turned on.
+                        <LineBreak />
+                        <LineBreak />
+                        You can also setup your location manually using 'set location' button from below.
+                    </Paragraph>
+                </RichTextBox>
+
+                <RichTextBox Visibility="{Binding IssueList.IsLocationServicesNotAgreed, Converter={StaticResource ObjectToVisibilityConverter}}"
+                             VerticalAlignment="Top"
+                             Margin="-12,0,0,0"
+                             FontFamily="{StaticResource PhoneFontFamilySemiLight}"
+                             FontSize="{StaticResource PhoneFontSizeMedium}">
+                    <Paragraph>
+                        Please setup your location manually using 'set location' button from below.
+                    </Paragraph>
+                </RichTextBox>
+            </Grid>
+
+            <!--<Grid Visibility="{Binding IssueList.IsBusy, Converter={StaticResource ObjectToVisibilityConverter}, ConverterParameter='inverse'}">
+                <TextBlock Text="Wow, no issues in your location!"
+                           FontFamily="{StaticResource PhoneFontFamilySemiLight}"
+                           FontSize="{StaticResource PhoneFontSizeMedium}"
+                           TextWrapping="Wrap"
+                           Visibility="{Binding IssueList.Issues.Count, Converter={StaticResource ObjectToVisibilityConverter}, ConverterParameter='inverse'}" />
+            </Grid>-->
+            <!--<multibinding:BindingUtil.MultiBindings>
+                    <multibinding:MultiBindings>
+                      <multibinding:MultiBinding TargetProperty="Text"
+                                                 Converter="{StaticResource MultibindingVisibilityConverter}">
+                        <multibinding:BindingCollection>
+                          <Binding Path="{Binding IssueList.Issues.Count, Converter={StaticResource ObjectToVisibilityConverter}}" />
+                          <Binding Path="{Binding IssueList.Issues.Count, Converter={StaticResource ObjectToVisibilityConverter}}" />
+                        </multibinding:BindingCollection>
+                      </multibinding:MultiBinding>
+                    </multibinding:MultiBindings>
+                  </multibinding:BindingUtil.MultiBindings>-->
+        </Grid>
+    </Grid>
+</UserControl>

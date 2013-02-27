@@ -1,0 +1,197 @@
+﻿<UserControl x:Class="SeeClickFix.WP8.Views.IssueDetailsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:map="clr-namespace:Microsoft.Phone.Maps.Controls;assembly=Microsoft.Phone.Maps"
+             xmlns:controls="clr-namespace:SeeClickFix.WP8.Controls"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:ei="clr-namespace:Microsoft.Expression.Interactivity.Core;assembly=Microsoft.Expression.Interactions"
+             mc:Ignorable="d"
+             FontFamily="{StaticResource PhoneFontFamilyNormal}"
+             FontSize="{StaticResource PhoneFontSizeNormal}"
+             Foreground="{StaticResource PhoneForegroundBrush}"
+             d:DesignHeight="480"
+             d:DesignWidth="480">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <ProgressBar IsIndeterminate="{Binding IsBusy}"
+                     Visibility="{Binding IsBusy, Converter={StaticResource ObjectToVisibilityConverter}}" />
+        <ScrollViewer VerticalScrollBarVisibility="Auto"
+                      HorizontalScrollBarVisibility="Disabled"
+                      Grid.Row="1">
+            <StackPanel>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="12" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel VerticalAlignment="Top">
+                        <controls:ImageControl BorderBrush="{Binding Issue.Status, Converter={StaticResource IssueStatusBrushConverter}}"
+                                               Background="{Binding Issue.Status, Converter={StaticResource IssueStatusBrushConverter}}"
+                                               BorderThickness="2"
+                                               Height="72"
+                                               Width="72"
+                                               Source="{Binding Issue, Converter={StaticResource IssueImageConverter}, ConverterParameter='no-image'}"
+                                               FullSizeSource="{Binding Issue.PublicFilename, Converter={StaticResource BitmapImageConverter}}" />
+                        <Border Background="{Binding Issue.Status, Converter={StaticResource IssueStatusBrushConverter}}"
+                                Margin="0,1,0,0">
+                            <StackPanel Orientation="Horizontal"
+                                        HorizontalAlignment="Center">
+                                <Image Source="/Assets/AppBar/thumb.up.png"
+                                       Height="38"
+                                       Margin="-8,0,0,0"
+                                       VerticalAlignment="Center" />
+                                <TextBlock Text="{Binding Issue.Rating}"
+                                           Margin="-3,0,0,0"
+                                           Foreground="White"
+                                           FontSize="{StaticResource PhoneFontSizeMedium}"
+                                           VerticalAlignment="Center" />
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="2">
+                        <!--<StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Reported by'"/>
+                                    <HyperlinkButton Content="{Binding Issue.Reporter}">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="Tap">
+                                                <cmd:EventToCommand Command="{Binding ShowReporterDetails}"
+                                                                    CommandParameter="{Binding Issue.Reporter}"/>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </HyperlinkButton>
+                                </StackPanel>-->
+
+                        <!--<controls:TemplateSelectorControl Content="{Binding Issue.Reporter}">
+                            <controls:TemplateSelectorControl.ContentTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding}"
+                                               TextWrapping="Wrap" />
+                                </DataTemplate>
+                            </controls:TemplateSelectorControl.ContentTemplate>
+                            <controls:TemplateSelectorControl.PlaceholderTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="No description available"
+                                               Foreground="DarkGray" />
+                                </DataTemplate>
+                            </controls:TemplateSelectorControl.PlaceholderTemplate>
+                        </controls:TemplateSelectorControl>-->
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Reported by "
+                                       VerticalAlignment="Top"
+                                       Margin="0,3,0,0" />
+                            <controls:UsernameControl Content="{Binding Issue}"
+                                                      Grid.Column="1"
+                                                      x:Name="UsernameControl"
+                                                      VerticalAlignment="Center" />
+                        </Grid>
+                        <TextBlock Text="{Binding Issue.Id, StringFormat='Id #{0}'}" />
+                        <!--<TextBlock Text="{Binding Issue.Reporter, StringFormat='reported by \{0\}', Converter={StaticResource ReporterConverter}}"
+                                   TextWrapping="Wrap" />-->
+                        <TextBlock Text="{Binding Issue.CreatedAt, Converter={StaticResource DateTimeConverter}}"
+                                   TextWrapping="Wrap" />
+                        <!--<TextBlock Text="{Binding Issue.Rating, Converter={StaticResource VotedTextConverter}}"
+                                   TextWrapping="Wrap" />-->
+                        <TextBlock Text="{Binding Issue.Status, StringFormat='status {0}'}"
+                                   TextWrapping="Wrap" />
+                        
+                        <!--<Border Background="{Binding Issue.Status, Converter={StaticResource IssueStatusBrushConverter}}"
+                                        Padding="2, 1">
+                                    <TextBlock Text="{Binding Issue.Status}"
+                                               Foreground="White" 
+                                               HorizontalAlignment="Left"/>
+                                </Border>-->
+
+                        <!--<ItemsControl Grid.Row="3"
+                                              ItemsSource="{Binding Issue.Tags}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <HyperlinkButton Content="{Binding }" />
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>-->
+
+                        <!--<toolkit:Rating Value="{Binding Issue.Rating}"
+                                                Margin="0,12,0,0"
+                                                IsEnabled="False"
+                                                Width="100"
+                                                Height="21"
+                                                Grid.Row="2"
+                                                HorizontalAlignment="Left" />-->
+                    </StackPanel>
+                </Grid>
+
+                <!-- Location -->
+                <TextBlock Text="Location"
+                           Style="{StaticResource PhoneTextTitle2Style}"
+                           Margin="0,12,0,0" />
+                <TextBlock Text="{Binding Issue.Address}"
+                           TextWrapping="Wrap" />
+
+
+                <Button Style="{StaticResource SimpleButtonStyle}"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        HorizontalContentAlignment="Stretch"
+                        VerticalContentAlignment="Stretch">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <ei:NavigateToPageAction TargetPage="/Views/MapPage.xaml" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    <Border BorderThickness="1"
+                            BorderBrush="LightGray">
+                        <Grid>
+                            <map:Map Height="156"
+                                     Margin="0"
+                                     ZoomLevel="17"
+                                     Center="{Binding Main.IssueList.SelectedIssue.GeoCoordinate, Source={StaticResource Locator}}"
+                                     IsHitTestVisible="False">
+                                <map:Map.Layers>
+                                    <map:MapLayer>
+                                        <map:MapOverlay GeoCoordinate="{Binding Main.IssueList.SelectedIssue.GeoCoordinate, Source={StaticResource Locator}}"
+                                                        PositionOrigin="0.0,0.0"
+                                                        ContentTemplate="{StaticResource MapPinpointTemplate}" />
+                                    </map:MapLayer>
+                                </map:Map.Layers>
+                            </map:Map>
+                            <Rectangle Fill="Transparent" />
+                        </Grid>
+                    </Border>
+                </Button>
+
+                <!-- Description -->
+                <TextBlock Text="Description"
+                           Margin="0,12,0,0"
+                           Style="{StaticResource PhoneTextTitle2Style}" />
+                <controls:TemplateSelectorControl Content="{Binding Issue.Description}">
+                    <controls:TemplateSelectorControl.ContentTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding}"
+                                       TextWrapping="Wrap" />
+                        </DataTemplate>
+                    </controls:TemplateSelectorControl.ContentTemplate>
+                    <controls:TemplateSelectorControl.PlaceholderTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="No description available"
+                                       Foreground="DarkGray" />
+                        </DataTemplate>
+                    </controls:TemplateSelectorControl.PlaceholderTemplate>
+                </controls:TemplateSelectorControl>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

@@ -1,0 +1,256 @@
+﻿<phone:PhoneApplicationPage x:Class="SeeClickFix.WP8.Views.ReportIssuePage"
+                            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                            xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+                            xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+                            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                            xmlns:lcontrols="clr-namespace:SeeClickFix.WP8.Controls"
+                            xmlns:telerikInput="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.Input"
+                            xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+                            xmlns:appBarUtils="clr-namespace:AppBarUtils;assembly=AppBarUtils"
+                            xmlns:behaviors="clr-namespace:SeeClickFix.WP8.Behaviors"
+                            xmlns:maps="clr-namespace:Microsoft.Phone.Maps.Controls;assembly=Microsoft.Phone.Maps"
+                            xmlns:maptk="clr-namespace:Microsoft.Phone.Maps.Toolkit;assembly=Microsoft.Phone.Controls.Toolkit"
+                            xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+                            xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WP8"
+                            xmlns:ei="clr-namespace:Microsoft.Expression.Interactivity.Core;assembly=Microsoft.Expression.Interactions"
+                            FontFamily="{StaticResource PhoneFontFamilyNormal}"
+                            FontSize="{StaticResource PhoneFontSizeNormal}"
+                            Foreground="{StaticResource PhoneForegroundBrush}"
+                            SupportedOrientations="Portrait"
+                            Orientation="Portrait"
+                            mc:Ignorable="d"
+                            shell:SystemTray.IsVisible="True"
+                            xmlns:controls="clr-namespace:SeeClickFix.WP8.Controls"
+                            DataContext="{Binding ReportIssue, Source={StaticResource Locator}}">
+
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar IsVisible="True"
+                              IsMenuEnabled="True">
+
+            <shell:ApplicationBarIconButton IconUri="/Assets/AppBar/message.send.png"
+                                            Text="send" />
+            <shell:ApplicationBarIconButton IconUri="/Assets/AppBar/paperclip.png"
+                                            Text="attach" />
+            <shell:ApplicationBarIconButton IconUri="/Assets/AppBar/location.png"
+                                            Text="set location" />
+            <!--<shell:ApplicationBar.MenuItems>
+                <shell:ApplicationBarMenuItem Text="edit description" />
+            </shell:ApplicationBar.MenuItems>-->
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>
+    <i:Interaction.Behaviors>
+        <appBarUtils:AppBarItemCommand  Id="send"
+                                        Command="{Binding SubmitIssueCommand}" />
+        <appBarUtils:AppBarItemCommand  Id="attach"
+                                        Command="{Binding AttachCommand}" />
+        <appBarUtils:AppBarItemCommand  Id="set location"
+                                        Command="{Binding SetLocationCommand}" />
+    </i:Interaction.Behaviors>
+
+    <!--LayoutRoot is the root grid where all page content is placed-->
+    <Grid x:Name="LayoutRoot"
+          Background="{StaticResource PageBackgroundBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!--TitlePanel contains the name of the application and page title-->
+        <StackPanel Grid.Row="0"
+                    Margin="12,17,0,28">
+            <TextBlock Text="REPORT ISSUE"
+                       Style="{StaticResource PhoneTextNormalStyle}" />
+            <!--<TextBlock Text="SEECLICKFIX"
+                       Style="{StaticResource PhoneTextNormalStyle}" />-->
+            <!--<TextBlock Text="report issue"
+                       Margin="9,-7,0,0"
+                       Style="{StaticResource PhoneTextTitle1Style}" />-->
+        </StackPanel>
+
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <ProgressBar IsIndeterminate="{Binding IsBusy}"
+                         Visibility="{Binding IsBusy, Converter={StaticResource ObjectToVisibilityConverter}}" />
+            <ScrollViewer VerticalScrollBarVisibility="Auto"
+                          Margin="26,0,12,0"
+                          Grid.Row="1"
+                          BorderThickness="0"
+                          Padding="0"
+                          HorizontalScrollBarVisibility="Disabled">
+                <StackPanel x:Name="ContentPanel">
+                    <lcontrols:UserLoginControl  Margin="-12,12,0,12" />
+
+                    <StackPanel Visibility="{Binding UserProfileService.IsLogged, Converter={StaticResource ObjectToVisibilityConverter}, ConverterParameter='inverse'}"
+                                Margin="0,12,0,0">
+                        <TextBlock Text="Your display name"
+                                   Margin="0,0,0,0" />
+                        <TextBox Text="{Binding UserDisplayName, Mode=TwoWay}"
+                                 InputScope="PersonalFullName"
+                                 TextChanged="TxtBox_TextChanged"
+                                 Margin="-12,0,0,0" />
+
+                        <TextBlock Text="Your email address"
+                                   Margin="0,0,0,0" />
+                        <TextBox Text="{Binding UserEmail, Mode=TwoWay}"
+                                 InputScope="EmailNameOrAddress"
+                                 TextChanged="TxtBox_TextChanged"
+                                 Margin="-12,0,0,0" />
+                    </StackPanel>
+
+                    <!-- Address -->
+                    <TextBlock Text="Location"
+                               Grid.Row="2"
+                               Margin="0, 12, 0, 0" />
+                    <Grid>
+                        <TextBlock Text="{Binding SelectLocation.Address}"
+                                   TextWrapping="Wrap" />
+                        <TextBlock Text="Loading your location..."
+                                   FontSize="{StaticResource PhoneFontSizeNormal}"
+                                   Visibility="{Binding SelectLocation.Address, Converter={StaticResource ObjectToVisibilityConverter}, ConverterParameter='inverse'}" />
+                    </Grid>
+                    <Button Style="{StaticResource SimpleButtonStyle}"
+                            Margin="0,0,12,12"
+                            Height="144"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            HorizontalContentAlignment="Stretch"
+                            VerticalContentAlignment="Stretch"
+                            Command="{Binding SetLocationCommand}">
+                        <!--<i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <ei:NavigateToPageAction TargetPage="/Views/SelectLocationPage.xaml" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>-->
+                        <Border BorderThickness="1"
+                                BorderBrush="LightGray">
+                            <Grid>
+                                <maps:Map x:Name="map"
+                                          IsHitTestVisible="False"
+                                          ZoomLevel="17"
+                                          Center="{Binding SelectLocation.GeoLocation}"
+                                          toolkit:TiltEffect.IsTiltEnabled="True">
+                                    <i:Interaction.Behaviors>
+                                        <behaviors:MapCenterBehavior Center="{Binding SelectLocation.GeoLocation}" />
+                                    </i:Interaction.Behaviors>
+                                    <maptk:MapExtensions.Children>
+                                        <!--<maptk:Pushpin x:Name="RouteDirectionsPushPin" />-->
+                                        <maptk:Pushpin GeoCoordinate="{Binding SelectLocation.GeoLocation}"
+                                                       Background="{StaticResource PhoneAccentBrush}" />
+
+                                        <!--<maptk:MapItemsControl>
+                                                <maptk:MapItemsControl.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <maptk:Pushpin GeoCoordinate="{Binding SelectLocation.GeoCoordinate}"
+                                                                       Content="{Binding SelectLocation.GeoCoordinate}"
+                                                                       ContentTemplate="{StaticResource MapPinpointTemplate}"/>
+                                                    </DataTemplate>
+                                                </maptk:MapItemsControl.ItemTemplate>
+                                            </maptk:MapItemsControl>-->
+                                        <!--<maptk:UserLocationMarker x:Name="UserLocationMarker"
+                                                                      Visibility="Collapsed" />-->
+                                    </maptk:MapExtensions.Children>
+                                    <!--<maps:Map.Layers>
+                                                <maps:MapLayer>
+                                                    <maps:MapOverlay GeoCoordinate="{Binding SelectLocation.GeoLocation}"
+                                                                     PositionOrigin="0.0,0.0"
+                                                                     ContentTemplate="{StaticResource MapPinpointTemplate}" />
+                                                </maps:MapLayer>
+                                            </maps:Map.Layers>-->
+                                </maps:Map>
+                                <Rectangle Fill="Transparent" />
+                            </Grid>
+                        </Border>
+                    </Button>
+
+                    <!-- Title -->
+                    <TextBlock Text="Title"
+                               Margin="0, 12, 0, 0" />
+                    <TextBox Grid.Row="1"
+                             Margin="-12,0,0,0"
+                             InputScope="Text"
+                             Text="{Binding Title, Mode=TwoWay}"
+                             TextChanged="TxtBox_TextChanged" />
+
+                    <!--<controls:IssueTitleControl Margin="-12,-10,0,0"
+                                            RequestTypes="{Binding RequestTypes}"
+                                            SelectedRequestType="{Binding SelectedRequestType, Mode=TwoWay}" />-->
+                    <!-- Description -->
+                    <TextBlock Text="Description"
+                               Grid.Row="4"
+                               Margin="0, 12, 0, 0" />
+                    <TextBox Grid.Row="5"
+                             AcceptsReturn="True"
+                             TextWrapping="Wrap"
+                             MinHeight="120"
+                             MaxHeight="264"
+                             Margin="-12,0, 0, 0"
+                             InputScope="Text"
+                             Text="{Binding Description, Mode=TwoWay}"
+                             TextChanged="TxtBox_TextChanged" />
+
+                    <!-- Category -->
+                    <!--<StackPanel Visibility="{Binding RequestTypes, Converter={StaticResource ObjectToVisibilityConverter}}">
+                    <TextBlock Text="Category"
+                               Margin="0, 12, 0, 0" />
+                    <telerikInput:RadListPicker ItemsSource="{Binding RequestTypes}"
+                                                Margin="0"
+                                                SelectedItem="{Binding SelectedRequestType, Mode=TwoWay}"
+                                                SelectionMode="Single"
+                                                PopupHeader="ISSUE CATEGORY"
+                                                Style="{StaticResource RadListPickerWithAutoCompleteStyle}">
+                        <telerikInput:RadListPicker.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding DisplayTitle}"
+                                           FontSize="{StaticResource PhoneFontSizeNormal}" />
+                            </DataTemplate>
+                        </telerikInput:RadListPicker.ItemTemplate>
+                        <telerikInput:RadListPicker.PopupItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding DisplayTitle}"
+                                           Margin="0,-48,0,0"
+                                           FontSize="{StaticResource PhoneFontSizeNormal}"
+                                           Visibility="{Binding Converter={StaticResource SelectRequestTypeItemVisibilityConverter}}" />
+                            </DataTemplate>
+                        </telerikInput:RadListPicker.PopupItemTemplate>
+                    </telerikInput:RadListPicker>
+                </StackPanel>-->
+
+                    <!-- Questions -->
+                    <!--<ItemsControl ItemsSource="{Binding RequestTypeQuestions}"
+                              Visibility="{Binding RequestTypeQuestions, Converter={StaticResource ObjectToVisibilityConverter}}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <lcontrols:IssueQuestionControl Content="{Binding}"
+                                                            Margin="0,16,0,0"/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>-->
+
+                    <!-- Photo -->
+                    <StackPanel Margin="0, 12, 0, 0"
+                                Visibility="{Binding Photo, Converter={StaticResource ObjectToVisibilityConverter}}">
+                        <TextBlock Text="Photo" />
+                        <Border BorderBrush="LightGray"
+                                BorderThickness="1"
+                                Visibility="{Binding Photo, Converter={StaticResource ObjectToVisibilityConverter}}"
+                                HorizontalAlignment="Left"
+                                Height="96"
+                                Width="96"
+                                Margin="0,12,0,12"
+                                Background="Black">
+                            <Image Source="{Binding Photo, Converter={StaticResource BitmapImageConverter}}" />
+                        </Border>
+                    </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+        <!--ContentPanel - place additional content here-->
+
+    </Grid>
+
+</phone:PhoneApplicationPage>

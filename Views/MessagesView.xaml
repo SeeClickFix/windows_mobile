@@ -1,0 +1,81 @@
+﻿<UserControl x:Class="SeeClickFix.WP8.Views.MessagesView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:behaviors="clr-namespace:SeeClickFix.WP8.Behaviors"
+             xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+             xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WP8"
+             mc:Ignorable="d"
+             FontFamily="{StaticResource PhoneFontFamilyNormal}"
+             FontSize="{StaticResource PhoneFontSizeNormal}"
+             Foreground="{StaticResource PhoneForegroundBrush}"
+             d:DesignHeight="480"
+             d:DesignWidth="480"
+             DataContext="{Binding Messages, Source={StaticResource Locator}}">
+
+    <Grid Margin="12,0,0,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <ProgressBar IsIndeterminate="{Binding IsBusy}"
+                     Visibility="{Binding IsBusy, Converter={StaticResource ObjectToVisibilityConverter}}" />
+        <Grid Grid.Row="1">
+            <ScrollViewer Visibility="{Binding Messages, Converter={StaticResource ObjectToVisibilityConverter}}">
+                <i:Interaction.Behaviors>
+                    <behaviors:LoadMoreBehavior LoadMoreDataCommand="{Binding LoadMoreCommand}" />
+                </i:Interaction.Behaviors>
+                <ItemsControl x:Name="ItemsControl" 
+                              ItemsSource="{Binding Messages}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Margin="0,0,0,12">
+                                <Grid>
+                                    <Border Background="White"
+                                            Opacity="0.9"
+                                            toolkit:TiltEffect.IsTiltEnabled="True">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="Tap">
+                                                <cmd:EventToCommand Command="{Binding DataContext.ShowIssueDetailsCommand, ElementName=ItemsControl}"
+                                                                    CommandParameter="{Binding}" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </Border>
+                                    <StackPanel Margin="12" IsHitTestVisible="False">
+                                        <TextBlock Text="{Binding Summary}"
+                                                   Style="{StaticResource PhoneTextTitle2Style}"
+                                                   FontSize="{StaticResource PhoneFontSizeNormal}"
+                                                   TextWrapping="Wrap"
+                                                   FontWeight="SemiBold"
+                                                   Margin="0" />
+
+                                        <TextBlock Text="{Binding Excerpt, StringFormat='&quot;{0}...&quot;'}"
+                                                   Style="{StaticResource PhoneTextTitle2Style}"
+                                                   FontSize="{StaticResource PhoneFontSizeNormal}"
+                                                   TextWrapping="Wrap"
+                                                   Margin="0,7,0,0"
+                                                   FontStyle="Italic" />
+
+                                        <TextBlock Text="{Binding CreatedAt, Converter={StaticResource DateTimeConverter}}"
+                                                   Margin="0,5,0,0"
+                                                   Foreground="DarkGray" />
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+            <Grid Visibility="{Binding IsBusy, Converter={StaticResource ObjectToVisibilityConverter}, ConverterParameter='inverse'}">
+                <TextBlock Text="No messages for you yet"
+                           Visibility="{Binding Messages, Converter={StaticResource ObjectToVisibilityConverter}, ConverterParameter='inverse'}"
+                           FontFamily="{StaticResource PhoneFontFamilySemiLight}"
+                           FontSize="{StaticResource PhoneFontSizeMedium}"
+                           TextWrapping="Wrap"
+                           VerticalAlignment="Top" />
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>

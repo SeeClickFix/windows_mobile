@@ -1,0 +1,576 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.20506</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{79BD77D5-6506-4034-822A-1024B392C431}</ProjectGuid>
+    <ProjectTypeGuids>{C089C8C0-30E0-4E22-80C0-CE093F111A43};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SeeClickFix.WP8</RootNamespace>
+    <AssemblyName>SeeClickFix.WP8</AssemblyName>
+    <TargetFrameworkIdentifier>WindowsPhone</TargetFrameworkIdentifier>
+    <TargetFrameworkVersion>v8.0</TargetFrameworkVersion>
+    <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
+    <SilverlightApplication>true</SilverlightApplication>
+    <SupportedCultures>
+    </SupportedCultures>
+    <XapOutputs>true</XapOutputs>
+    <GenerateSilverlightManifest>true</GenerateSilverlightManifest>
+    <XapFilename>SeeClickFix.WP8_$(Configuration)_$(Platform).xap</XapFilename>
+    <SilverlightManifestTemplate>Properties\AppManifest.xml</SilverlightManifestTemplate>
+    <SilverlightAppEntry>SeeClickFix.WP8.App</SilverlightAppEntry>
+    <ValidateXaml>true</ValidateXaml>
+    <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
+    <MinimumVisualStudioVersion>11.0</MinimumVisualStudioVersion>
+    <ExpressionBlendVersion>5.0.31017.0</ExpressionBlendVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>Bin\Release</OutputPath>
+    <DefineConstants>TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Bin\x86\Debug</OutputPath>
+    <DefineConstants>DEBUG;TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>Bin\x86\Release</OutputPath>
+    <DefineConstants>TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|ARM' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Bin\ARM\Debug</OutputPath>
+    <DefineConstants>DEBUG;TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|ARM' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>Bin\ARM\Release</OutputPath>
+    <DefineConstants>TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Actions\RadListPickerSelectItemAction.cs" />
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <None Include="Assets\Copy of Styles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="SeeClickFix.WP8_2013_02_26_21_21_12.sap" />
+    <Page Include="Assets\RadListPickerWithAutoCompleteStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Assets\RequestTypeQuestionStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Compile Include="Behaviors\LoadMoreBehavior.cs" />
+    <Compile Include="Behaviors\MapCenterBehavior.cs" />
+    <Compile Include="Behaviors\MapManipulationBehavior.cs" />
+    <Compile Include="Behaviors\StartMediaPlayerLauncherOnTapBehavior.cs" />
+    <Compile Include="Common\BindingChangedEventArgs.cs" />
+    <Compile Include="Common\DateTimeUtils.cs" />
+    <Compile Include="Common\DependencyPropertyListener.cs" />
+    <Compile Include="Common\DeviceExtendedPropertiesUtils.cs" />
+    <Compile Include="Common\EmailValidator.cs" />
+    <Compile Include="Common\GeoCoordinateWatcherUtil.cs" />
+    <Compile Include="Common\ImageCache.cs" />
+    <Compile Include="Common\ImageUtils.cs" />
+    <Compile Include="Common\YoutubeURLParser.cs" />
+    <Compile Include="Controls\DataTypeDataTemplateSelector.cs" />
+    <Compile Include="Controls\ImageControl.cs" />
+    <Compile Include="Controls\IssueQuestionControl.cs" />
+    <None Include="Controls\IssueTitleControl.cs" />
+    <Compile Include="Controls\ListPickerEx.cs" />
+    <Compile Include="Controls\TemplateSelectorControl.cs" />
+    <Compile Include="Controls\DataTemplateSelector.cs" />
+    <Compile Include="Controls\UserLoginControl.cs" />
+    <Compile Include="Controls\UsernameControl.cs" />
+    <Compile Include="Controls\UserProfileStatsControl.cs" />
+    <Compile Include="Controls\WatermarkTextBox.cs" />
+    <Compile Include="Converters\BitmapImageConverter.cs" />
+    <Compile Include="Converters\BoolNegateConverter.cs" />
+    <Compile Include="Converters\BoolToDoubleConverter.cs" />
+    <Compile Include="Converters\ConditionalIntVisibilityConverter.cs" />
+    <Compile Include="Converters\IssueCloseReopenTitleConverter.cs" />
+    <Compile Include="Converters\IssueImageConverter.cs" />
+    <Compile Include="Converters\NewCommentTitleConverter.cs" />
+    <Compile Include="Converters\DateTimeConverter.cs" />
+    <Compile Include="Converters\IssueHistoryItemTypeBrushConverter.cs" />
+    <Compile Include="Converters\IssueStatusBrushConverter.cs" />
+    <Compile Include="Converters\EpochToDateTimeConverter.cs" />
+    <Compile Include="Converters\MultibindingVisibilityConverter.cs" />
+    <Compile Include="Converters\ObjectToBoolConverter.cs" />
+    <Compile Include="Converters\ObjectToVisibilityConverter.cs" />
+    <Compile Include="Converters\ReporterConverter.cs" />
+    <Compile Include="Converters\SelectRequestTypeItemVisibilityConverter.cs" />
+    <Compile Include="Converters\ShareServiceIconConverter.cs" />
+    <Compile Include="Converters\StringCaseConverter.cs" />
+    <Compile Include="Converters\UserNameConverter.cs" />
+    <Compile Include="Converters\UserProfileStatsNavigateUriConverter.cs" />
+    <Compile Include="Converters\VotedTextConverter.cs" />
+    <Compile Include="Infrastructure\ArgumentValidator.cs" />
+    <Compile Include="Infrastructure\Reflection\PropertyUtility.cs" />
+    <None Include="Infrastructure\Serializer2.cs" />
+    <Compile Include="Infrastructure\Serializer.cs" />
+    <Compile Include="Infrastructure\StateManagement\IStatePreservation.cs" />
+    <Compile Include="Infrastructure\StateManagement\StatefulAttribute.cs" />
+    <Compile Include="Infrastructure\StateManagement\StateManager.cs" />
+    <Compile Include="Infrastructure\StateManagement\ViewState.cs" />
+    <Compile Include="InitializationPage.xaml.cs">
+      <DependentUpon>InitializationPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LocalizedStrings.cs" />
+    <Compile Include="MainPage.xaml.cs">
+      <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Multibinding\BindingUtil.cs" />
+    <Compile Include="Multibinding\IMultiValueConverter.cs" />
+    <Compile Include="Multibinding\MultiBinding.cs" />
+    <Compile Include="Multibinding\MultiBindings.cs" />
+    <Compile Include="SeeClickFixAPI\AddCommentResponse.cs" />
+    <Compile Include="SeeClickFixAPI\AddIssueQuery.cs" />
+    <Compile Include="SeeClickFixAPI\AddIssueResponse.cs" />
+    <Compile Include="SeeClickFixAPI\Address.cs" />
+    <Compile Include="SeeClickFixAPI\Comment.cs" />
+    <Compile Include="SeeClickFixAPI\Coordinate.cs" />
+    <Compile Include="SeeClickFixAPI\Geocode.cs" />
+    <Compile Include="SeeClickFixAPI\GetIssueResponse.cs" />
+    <Compile Include="SeeClickFixAPI\GetUserMessagesQuery.cs" />
+    <Compile Include="SeeClickFixAPI\Issue.cs" />
+    <Compile Include="SeeClickFixAPI\IssueHistoryItem.cs" />
+    <Compile Include="SeeClickFixAPI\IssueHistoryItemType.cs" />
+    <Compile Include="SeeClickFixAPI\IssueHistoryItemTypeExtensions.cs" />
+    <Compile Include="SeeClickFixAPI\IssueSort.cs" />
+    <Compile Include="SeeClickFixAPI\IssueStatus.cs" />
+    <Compile Include="SeeClickFixAPI\ListIssuesQuery.cs" />
+    <Compile Include="SeeClickFixAPI\ListServiceRequestTypesResponse.cs" />
+    <Compile Include="SeeClickFixAPI\ListServiceRequestTypesResponseItem.cs" />
+    <Compile Include="SeeClickFixAPI\Message.cs" />
+    <Compile Include="SeeClickFixAPI\Place.cs" />
+    <Compile Include="SeeClickFixAPI\RequestType.cs" />
+    <Compile Include="SeeClickFixAPI\RequestTypeQuestion.cs" />
+    <Compile Include="SeeClickFixAPI\RequestTypeQuestionTypes.cs" />
+    <Compile Include="SeeClickFixAPI\Response.cs" />
+    <Compile Include="SeeClickFixAPI\ResponseBase.cs" />
+    <Compile Include="SeeClickFixAPI\RestClientExtensions.cs" />
+    <Compile Include="SeeClickFixAPI\SeeClickFixApi.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\AppSettingsService.cs" />
+    <Compile Include="ViewModel\BaseViewModelState.cs" />
+    <Compile Include="ViewModel\MessagesViewModel.cs" />
+    <Compile Include="ViewModel\SelectedIssueViewModel.cs" />
+    <Compile Include="ViewModel\SettingsViewModel.cs" />
+    <Compile Include="Views\AboutPage.xaml.cs">
+      <DependentUpon>AboutPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\LocationServicesUserConsent.xaml.cs">
+      <DependentUpon>LocationServicesUserConsent.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MapIssuesPage.xaml.cs">
+      <DependentUpon>MapIssuesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\ViewImageViewModel.cs" />
+    <Compile Include="Views\MessagesView.xaml.cs">
+      <DependentUpon>MessagesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ReportIssuePage.xaml.cs">
+      <DependentUpon>ReportIssuePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\AppResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AppResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="SeeClickFixAPI\SelectQuestionValue.cs" />
+    <Compile Include="SeeClickFixAPI\ListWatchAreaResponse.cs" />
+    <Compile Include="SeeClickFixAPI\Direction.cs" />
+    <Compile Include="SeeClickFixAPI\ShareServiceType.cs" />
+    <Compile Include="SeeClickFixAPI\User.cs" />
+    <Compile Include="SeeClickFixAPI\UserLogin.cs" />
+    <Compile Include="SeeClickFixAPI\VideoThumbnailParser.cs" />
+    <Compile Include="SeeClickFixAPI\WatchArea.cs" />
+    <Compile Include="Views\RequestTypeQuestionsControl.xaml.cs">
+      <DependentUpon>RequestTypeQuestionsControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RequestTypeListPage.xaml.cs">
+      <DependentUpon>RequestTypeListPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SelectLocationPage.xaml.cs">
+      <DependentUpon>SelectLocationPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Services\GeoLocatorService.cs" />
+    <Compile Include="Services\GetGeoCoordinateResponse.cs" />
+    <Compile Include="Services\Impl\SCFDataServiceDesign.cs" />
+    <Compile Include="Services\INavigationService.cs" />
+    <Compile Include="Services\ISCFDataService.cs" />
+    <Compile Include="Services\Impl\NavigationService.cs" />
+    <Compile Include="Services\Impl\SCFDataService.cs" />
+    <Compile Include="Common\Constants.cs" />
+    <Compile Include="Services\ShareService.cs" />
+    <Compile Include="Services\UserProfileService.cs" />
+    <Compile Include="ViewModels\ItemViewModel.cs" />
+    <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModel\BaseViewModel.cs" />
+    <Compile Include="ViewModel\FlagIssueViewModel.cs" />
+    <Compile Include="ViewModel\IssueCommentsViewModel.cs" />
+    <Compile Include="ViewModel\IssueDetailsViewModel.cs" />
+    <Compile Include="ViewModel\IssueListViewModel.cs" />
+    <Compile Include="ViewModel\LoginRegisterViewModel.cs" />
+    <Compile Include="ViewModel\LoginViewModel.cs" />
+    <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\MapViewModel.cs" />
+    <Compile Include="ViewModel\Messages.cs" />
+    <Compile Include="ViewModel\NewCommentViewModel.cs" />
+    <Compile Include="ViewModel\RegisterViewModel.cs" />
+    <Compile Include="ViewModel\ReportIssueViewModel.cs" />
+    <Compile Include="ViewModel\SelectLocationViewModel.cs" />
+    <Compile Include="ViewModel\ShareIssueViewModel.cs" />
+    <Compile Include="ViewModel\UserDetailsViewModel.cs" />
+    <Compile Include="ViewModel\ViewModelLocator.cs" />
+    <Compile Include="ViewModel\VoteIssueViewModel.cs" />
+    <Compile Include="Views\FlagIssuePage.xaml.cs">
+      <DependentUpon>FlagIssuePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\IssueCommentsView.xaml.cs">
+      <DependentUpon>IssueCommentsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\IssueDetailsView.xaml.cs">
+      <DependentUpon>IssueDetailsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\IssueListView.xaml.cs">
+      <DependentUpon>IssueListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\LoginRegisterPage.xaml.cs">
+      <DependentUpon>LoginRegisterPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MapPage.xaml.cs">
+      <DependentUpon>MapPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\NewCommentPage.xaml.cs">
+      <DependentUpon>NewCommentPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\IssueDetailsPage.xaml.cs">
+      <DependentUpon>IssueDetailsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FilterSettingsPage.xaml.cs">
+      <DependentUpon>FilterSettingsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SearchOrderSettingsPage.xaml.cs">
+      <DependentUpon>SearchOrderSettingsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SettingsPage.xaml.cs">
+      <DependentUpon>SettingsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ShareIssuePage.xaml.cs">
+      <DependentUpon>ShareIssuePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserProfilePage.xaml.cs">
+      <DependentUpon>UserProfilePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ViewImagePage.xaml.cs">
+      <DependentUpon>ViewImagePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\VoteIssuePage.xaml.cs">
+      <DependentUpon>VoteIssuePage.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </ApplicationDefinition>
+    <Page Include="InitializationPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <DesignData Include="SampleData\MainViewModelSampleData.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </DesignData>
+    <Page Include="Views\AboutPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\LocationServicesUserConsent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MapIssuesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MessagesView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ReportIssuePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\RequestTypeQuestionsControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\RequestTypeListPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SelectLocationPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\FlagIssuePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\IssueCommentsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\IssueDetailsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\IssueListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\LoginRegisterPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MapPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\NewCommentPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\IssueDetailsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\FilterSettingsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SearchOrderSettingsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SettingsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ShareIssuePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserProfilePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ViewImagePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\VoteIssuePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="Properties\AppManifest.xml" />
+    <None Include="Properties\WMAppManifest.xml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="SeeClickFix.WP8_2013_02_15_00_22_30.sap" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\AppBar\check.png" />
+    <Content Include="Assets\AppBar\checkmark.pencil.png" />
+    <Content Include="Assets\AppBar\crosshair.png" />
+    <Content Include="Assets\AppBar\directions.png" />
+    <Content Include="Assets\AppBar\eye.png" />
+    <Content Include="Assets\AppBar\feature.settings.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\AppBar\filter.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\AppBar\flag.wavy.png" />
+    <Content Include="Assets\AppBar\globe.wire.png" />
+    <Content Include="Assets\AppBar\location.png" />
+    <Content Include="Assets\AppBar\message.send.png" />
+    <Content Include="Assets\AppBar\microphone.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\AppBar\new.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\AppBar\paperclip.png" />
+    <Content Include="Assets\AppBar\people.arrow.right.png" />
+    <Content Include="Assets\AppBar\refresh.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\AppBar\share.png" />
+    <Content Include="Assets\AppBar\sort.png" />
+    <Content Include="Assets\AppBar\thumb.up.png" />
+    <Content Include="Assets\email.png" />
+    <Content Include="Assets\eye.png" />
+    <Content Include="Assets\facebook.png" />
+    <Content Include="Assets\logo40.png" />
+    <Content Include="Assets\maconskin20.png" />
+    <Content Include="Assets\newhaven20.png" />
+    <Resource Include="Assets\Styles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Resource>
+    <Content Include="Assets\no-avatar-32x32.png" />
+    <Content Include="Assets\no-avatar.png" />
+    <Content Include="Assets\no-image.png" />
+    <Content Include="Assets\AppBar\slice.png" />
+    <Content Include="Assets\thumb.up.png" />
+    <Content Include="Assets\tiles.nine.png" />
+    <Content Include="Assets\twitter.png" />
+    <Content Include="Assets\youtube.play.png" />
+    <Content Include="SplashScreenImage.jpg" />
+    <Content Include="Assets\logo.png" />
+    <Content Include="README_FIRST.txt" />
+    <Content Include="Toolkit.Content\ApplicationBar.Cancel.png" />
+    <Content Include="Toolkit.Content\ApplicationBar.Check.png" />
+    <Content Include="Toolkit.Content\ApplicationBar.Delete.png" />
+    <Content Include="Toolkit.Content\ApplicationBar.Select.png" />
+    <Resource Include="Assets\PanoramaBackground.png" />
+    <Content Include="Assets\AlignmentGrid.png" />
+    <Content Include="Assets\ApplicationIcon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Tiles\FlipCycleTileLarge.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Tiles\FlipCycleTileMedium.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Tiles\FlipCycleTileSmall.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Tiles\IconicTileMediumLarge.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Tiles\IconicTileSmall.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\AppResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="AppBarUtils">
+      <HintPath>packages\AppBarUtils.2.2\lib\windowsphone8\AppBarUtils.dll</HintPath>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight.Extras.WP8, Version=4.1.27.22645, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>packages\MvvmLightLibs.4.1.27.0\lib\WindowsPhone8\GalaSoft.MvvmLight.Extras.WP8.dll</HintPath>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight.WP8, Version=4.1.27.22645, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>packages\MvvmLightLibs.4.1.27.0\lib\WindowsPhone8\GalaSoft.MvvmLight.WP8.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Expression.Interactions, Version=3.9.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Phone.Controls, Version=8.0.0.0, Culture=neutral, PublicKeyToken=24eec0d8c86cda1e, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Phone.Controls.Toolkit">
+      <HintPath>packages\WPtoolkit.4.2012.10.30\lib\wp8\Microsoft.Phone.Controls.Toolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>packages\MvvmLightLibs.4.1.27.0\lib\WindowsPhone8\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>packages\Newtonsoft.Json.4.5.11\lib\sl4-windowsphone71\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp.WindowsPhone">
+      <HintPath>packages\RestSharp.104.1\lib\sl4-wp71\RestSharp.WindowsPhone.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Interactivity, Version=3.9.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\MvvmLightLibs.4.1.27.0\lib\WindowsPhone8\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Windows.Controls.Input">
+      <HintPath>ThirdParty\Telerik.Windows.Controls.Input.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Windows.Controls.Primitives">
+      <HintPath>ThirdParty\Telerik.Windows.Controls.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Windows.Core">
+      <HintPath>ThirdParty\Telerik.Windows.Core.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Tools\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <ProjectExtensions />
+</Project>
